@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <script src="Planet.js"></script>
+    <script src="GUI.js"></script>
+</head>
+<body>
+    <canvas id="SolarSystem" width="1920" height="1080" style="border:1px solid"></canvas>
+    <script>
+        var planets = [];
+
+        var Sun = new Planet("Sun", 696340000,
+        0, 0, 0,
+        1.989*Math.pow(10,30),
+        [0,0,0],
+        0);
+        planets.push(Sun);
+
+        var Earth = new Planet("Earth", 6371000,
+        149597887500, 0, 0,
+        5.9726*Math.pow(10,24),
+        [0,-2.3*Math.pow(10,9),0]);
+        planets.push(Earth);
+
+        var Jupiter = new Planet("Jupiter", 69911000,
+        778547200000, 0, 0,
+        1.8986*Math.pow(10,27),
+        [0,1.75*Math.pow(10,10),0]);
+        planets.push(Jupiter);
+
+        var Mercury = new Planet("Mercury", 2439000,
+        57910000000, 0, 0,
+        3.285*Math.pow(10,23),
+        [0,-9*Math.pow(10,8),0]);
+        planets.push(Mercury);
+
+        var Mars = new Planet("Mars", 2439000,
+        228000000000, 0, 0,
+        6.4174*Math.pow(10,23),
+        [0,6*Math.pow(10,8),0]);
+        planets.push(Mars);
+
+        var Saturnus = new Planet("Saturnus", 54364000,
+        1433449370000, 0, 0,
+        5.6846*Math.pow(10,26),
+        [0,8*Math.pow(10,9),0]);
+        planets.push(Saturnus);
+
+        var Venus = new Planet("Venus", 6051800,
+        108208930000, 0, 0,
+        4.8676*Math.pow(10,24),
+        [0,-2.5*Math.pow(10,9),0]);
+        planets.push(Venus);
+
+        var Neptun = new Planet("Neptun", 24341000,
+        4503443661000, 0, 0,
+        1.0243*Math.pow(10,26),
+        [0,-2*Math.pow(10,9),0]);
+        planets.push(Neptun);
+
+        var Uranus = new Planet("Uranus", 24973000,
+        2876679082000, 0, 0,
+        8.6810*Math.pow(10,25),
+        [0,2*Math.pow(10,9),0]);
+        planets.push(Uranus);
+
+        var SolarGUI = new GUI();
+
+        function mainLoop(planetsArray)
+        {
+            SolarGUI.displayPlanets(planetsArray);
+            var i = 1;
+            while(i<planetsArray.length)
+            {
+                planetsArray[i].updatePosition(planets[0]);
+                //console.log("Force: " + planetsArray[i].speed);
+                i++;
+            }
+        }
+        window.addEventListener("wheel", event => {
+            const delta = Math.sign(event.deltaY);
+            SolarGUI.Scaler += delta*50000000;
+            SolarGUI.radScaler += delta * 10000000;
+            //console.log(SolarGUI.Scaler + "\n" + SolarGUI.radScaler);
+            
+        });
+        var run = setInterval("mainLoop(planets)",10);
+    </script>
+</body>
+</html>
